@@ -1,26 +1,56 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+var request = require('request');
+var querystring = require('querystring');
+require('dotenv').config()
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
+const users = require('./api/users.js')
+const vaults = require('./api/vaults.js')
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === "OPTIONS") 
+        res.send(200);
+    else (next())
+}
+app.use(allowCrossDomain)
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+app.use('/users', users);
+app.use('/vaults', vaults);
+
+app.get('/github_login/:code', (req, res, next) => {
+  const code = req.params.code
+  if (!code) {
+    return next()
+  }
+
+  request.post('https://github.com/login/oauth/access_token', {
+    form: {
+      code,
+      client_id: process.env.GITHUB_CLIENT_ID,
+      client_secret: process.env.GITHUB_CLIENT_SECRET
+    }
+  }, (err, response, body) => {
+    const github = querystring.parse(body)
+    res.json(github.access_token)
+  })
+})
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -29,13 +59,11 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: req.app.get('env') === 'development' ? err : {}
+  });
 });
 
 module.exports = app;
