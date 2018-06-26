@@ -49,8 +49,10 @@ app.get('/github_login/:code', (req, res, next) => {
       client_secret: process.env.GITHUB_CLIENT_SECRET
     }
   }, (err, response, body) => {
-    const github = querystring.parse(body)
-    console.log(github)
+    if (err) return next(err)
+    console.log('GITHUB', body)
+    console.log('GITHUB', body)
+    const github = JSON.parse(body)
     res.json({accessToken: github.access_token})
   })
 })
@@ -65,6 +67,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  console.log('EXPRESS ERROR:', err)
   res.status(err.status || 500);
   res.json({
     message: err.message,
