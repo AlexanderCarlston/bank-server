@@ -1,3 +1,5 @@
+import { log } from 'util';
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -45,6 +47,7 @@ app.get('/github_login/:code', (req, res, next) => {
     }
   }, (err, response, body) => {
     const github = querystring.parse(body)
+    console.log(github)
     res.json(github.access_token)
   })
 })
