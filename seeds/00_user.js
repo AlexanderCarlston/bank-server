@@ -4,8 +4,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('users').insert([
-        {id: 1, github_token: 'github token', github_name: 'github name'},
-        {id: 2, github_token: 'github token2', github_name: 'github name2'}
+        {id: 1, github_token: 'github token', github_name: 'github name', user_code_snippets: {"test1": ["test1"]}},
+        {id: 2, github_token: 'github token2', github_name: 'github name2', user_code_snippets: {"test2": ["test2"]}}
       ]);
     }).then(() => {
         return knex.raw("ALTER SEQUENCE users_id_seq RESTART WITH 3;");

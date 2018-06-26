@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
         .inTable('users')
         .onDelete('CASCADE')
         .index();
-        // table.json('vault_code_snippets')
+        table.json('vault_code_snippets')
     })
   }
   exports.down = function(knex, Promise) {

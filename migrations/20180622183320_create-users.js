@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
       table.increments('id')
       table.string('github_token')
       table.string('github_name')
-      // table.json('user_code_snippets')
+      table.json('user_code_snippets')
     })
   }
   exports.down = function(knex, Promise) {
