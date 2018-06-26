@@ -40,6 +40,9 @@ app.get('/github_login/:code', (req, res, next) => {
   }
 
   request.post('https://github.com/login/oauth/access_token', {
+    headers: {
+      "accept": "application/json"
+    },
     form: {
       code,
       client_id: process.env.GITHUB_CLIENT_ID,
@@ -48,7 +51,7 @@ app.get('/github_login/:code', (req, res, next) => {
   }, (err, response, body) => {
     const github = querystring.parse(body)
     console.log(github)
-    res.json(github.access_token)
+    res.json({accessToken: github.access_token})
   })
 })
 
