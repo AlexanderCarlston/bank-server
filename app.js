@@ -50,10 +50,10 @@ app.get('/github_login/:code', (req, res, next) => {
     }
   }, (err, response, body) => {
     if (err) return next(err)
-    console.log('GITHUB', body)
-    console.log('GITHUB', body)
+    console.log('RESPONSE', response)
+    console.log('BODY', body)
     const github = JSON.parse(body)
-    res.json({accessToken: github.access_token})
+    res.json({testKey: true, accessToken: github.access_token})
   })
 })
 
