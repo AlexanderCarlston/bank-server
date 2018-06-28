@@ -40,8 +40,6 @@ app.post('/auth/github', (req, res, next) => {
     client_secret: process.env.GITHUB_CLIENT_SECRET,
     code: req.body.code,
     redirect_uri: req.body.redirectUri,
-    state: req.body.state,
-    grant_type: 'authorization_code'
   }, { 'Content-Type': 'application/json' }).then(function (response) {
     var responseJson = parseQueryString(response.data)
     if (responseJson.error) {
