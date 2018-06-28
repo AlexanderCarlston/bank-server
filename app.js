@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use('/users', users);
 app.use('/vaults', vaults);
 
-app.get('/github_login/:code', (req, res, next) => {
+app.get('/auth/github/:code', (req, res, next) => {
   const code = req.params.code
   if (!code) {
     return next()
