@@ -43,12 +43,12 @@ app.post('/auth/github', (req, res, next) => {
   }, { 'Content-Type': 'application/json' }).then(function (response) {
     var responseJson = parseQueryString(response.data)
     if (responseJson.error) {
-      res.status(500).json({ error: responseJson.error })
+      res.sendStatus(500).json({ error: responseJson.error })
     } else {
       res.json(responseJson)
     }
   }).catch(function (err) {
-    res.status(500).json(err)
+    res.sendStatus(500).json(err)
   })
 })
 //test
