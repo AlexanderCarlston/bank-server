@@ -47,7 +47,10 @@ app.post('/auth/github', (req, res, next) => {
     form: {
       code,
       client_id: process.env.GITHUB_CLIENT_ID,
-      client_secret: process.env.GITHUB_CLIENT_SECRET
+      client_secret: process.env.GITHUB_CLIENT_SECRET,
+      redirect_uri: req.body.redirectUri,
+      state: req.body.state,
+      grant_type: 'authorization_code'
     }
   }, (err, response, body) => {
     if (err) return next(err)
