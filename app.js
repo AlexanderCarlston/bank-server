@@ -59,29 +59,29 @@ app.post('/auth/github/:code', (req, res, next) => {
   // })
 })
 //test
-// app.get('/auth/github/:code', (req, res, next) => {
-//   const code = req.params.code
-//   if (!code) {
-//     return next()
-//   }
+app.get('/auth/github/:code', (req, res, next) => {
+  const code = req.params.code
+  if (!code) {
+    return next()
+  }
 
-//   request.post('https://github.com/login/oauth/access_token', {
-//     headers: {
-//       "accept": "application/json"
-//     },
-//     form: {
-//       code,
-//       client_id: process.env.GITHUB_CLIENT_ID,
-//       client_secret: process.env.GITHUB_CLIENT_SECRET
-//     }
-//   }, (err, response, body) => {
-//     if (err) return next(err)
-//     console.log('RESPONSE', response)
-//     console.log('BODY', body)
-//     const github = JSON.parse(body)
-//     res.json({testKey: true, accessToken: github.access_token})
-//   })
-// })
+  request.post('https://github.com/login/oauth/access_token', {
+    headers: {
+      "accept": "application/json"
+    },
+    form: {
+      code,
+      client_id: process.env.GITHUB_CLIENT_ID,
+      client_secret: process.env.GITHUB_CLIENT_SECRET
+    }
+  }, (err, response, body) => {
+    if (err) return next(err)
+    console.log('RESPONSE', response)
+    console.log('BODY', body)
+    const github = JSON.parse(body)
+    res.json({testKey: true, accessToken: github.access_token})
+  })
+})
 
 
 
