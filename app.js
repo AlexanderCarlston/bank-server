@@ -36,8 +36,8 @@ app.use('/vaults', vaults);
 //test
 app.post('/auth/github', (req, res, next) => {
   Axios.post('https://github.com/login/oauth/access_token', {
-    client_id: config.auth.github.clientId,
-    client_secret: config.auth.github.clientSecret,
+    client_id: process.env.GITHUB_CLIENT_ID,
+    client_secret: process.env.GITHUB_CLIENT_SECRET,
     code: req.body.code,
     redirect_uri: req.body.redirectUri,
     state: req.body.state,
