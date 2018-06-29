@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
       table.increments('id')
       table.string('github_token')
       table.string('github_name')
+      table.string('avatar_url')
       table.json('user_code_snippets')
     })
   }
