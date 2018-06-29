@@ -58,6 +58,9 @@ app.use('/vaults', vaults);
 //     res.send({testKey: true, token: github.access_token})
 //   })
 // });
+app.options("/auth/github", function(req, res, next){
+  res.send('hi')
+})
 app.post('/auth/github', (req, res, next) => {
   const code = req.body.code
   if (!code) {
