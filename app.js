@@ -35,10 +35,7 @@ app.use(cookieParser());
 app.use('/users', users);
 app.use('/vaults', vaults);
 //test
-// app.options("/auth/github", function(req, res, next){
-// res.send("hi")
-// });
-app.options('/auth/github', (req, res, next) => {
+app.options("/auth/github", function(req, res, next){
   const code = req.body.code
   if (!code) {
     return next()
@@ -60,7 +57,30 @@ app.options('/auth/github', (req, res, next) => {
     const github = JSON.parse(body)
     res.send({testKey: true, token: github.access_token})
   })
-})
+});
+// app.post('/auth/github', (req, res, next) => {
+//   const code = req.body.code
+//   if (!code) {
+//     return next()
+//   }
+//   request.post('https://github.com/login/oauth/access_token', {
+//     headers: {
+//       "accept": "application/json"
+//     },
+//     form: {
+//       code,
+//       client_id: process.env.GITHUB_CLIENT_ID,
+//       client_secret: process.env.GITHUB_CLIENT_SECRET,
+//       redirect_uri: req.body.redirectUri
+//     }
+//   }, (err, response, body) => {
+//     if (err) return next(err)
+//     // console.log('RESPONSE', response)
+//     // console.log('BODY', body)
+//     const github = JSON.parse(body)
+//     res.send({testKey: true, token: github.access_token})
+//   })
+// })
 //test
 // app.get('/auth/github/:code', (req, res, next) => {
   // const code = req.params.code
