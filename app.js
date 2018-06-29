@@ -35,13 +35,13 @@ app.use('/users', users);
 app.use('/vaults', vaults);
 //test
 app.post('/auth/github', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   const code = req.body.code
   if (!code) {
     return next()
   }
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   request.post('https://github.com/login/oauth/access_token', {
     headers: {
       "accept": "application/json"
