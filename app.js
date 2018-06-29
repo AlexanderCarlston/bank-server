@@ -57,9 +57,7 @@ app.post('/auth/github', (req, res, next) => {
     console.log('RESPONSE', response)
     console.log('BODY', body)
     const github = JSON.parse(body)
-    var responseJson = parseQueryString(response.data)
-    res.json(responseJson)
-    // res.send({testKey: true, accessToken: github.access_token})
+    res.send({testKey: true, token: github.access_token})
   })
 })
 //test
