@@ -36,9 +36,6 @@ app.use('/users', users);
 app.use('/vaults', vaults);
 //test
 app.post('/auth/github', (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   const code = req.body.code
   if (!code) {
     return next()
@@ -58,7 +55,7 @@ app.post('/auth/github', (req, res, next) => {
     console.log('RESPONSE', response)
     console.log('BODY', body)
     const github = JSON.parse(body)
-    res.sendStatus({testKey: true, token: github.access_token})
+    res.send({testKey: true, token: github.access_token})
   })
 })
 //test
