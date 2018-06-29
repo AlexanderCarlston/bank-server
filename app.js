@@ -39,7 +39,10 @@ app.post('/auth/github', (req, res, next) => {
   if (!code) {
     return next()
   }
-
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
   request.post('https://github.com/login/oauth/access_token', {
     headers: {
       "accept": "application/json"
@@ -53,10 +56,6 @@ app.post('/auth/github', (req, res, next) => {
       grant_type: 'authorization_code'
     }
   }, (err, response, body) => {
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Credentials", "true");
-    response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
     if (err) return next(err)
     console.log('RESPONSE', response)
     console.log('BODY', body)
