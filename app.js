@@ -34,6 +34,12 @@ app.use(cookieParser());
 app.use('/users', users);
 app.use('/vaults', vaults);
 //test
+app.options("/*", function(req, res, next){
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.send(200);
+});
 app.post('/auth/github', (req, res, next) => {
   const code = req.body.code
   if (!code) {
