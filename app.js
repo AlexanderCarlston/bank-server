@@ -59,7 +59,8 @@ app.use('/vaults', vaults);
 //   })
 // });
 app.options("/auth/github", function(req, res, next){
-  res.send('hi')
+  // res.send('hi')
+  next()
 })
 app.post('/auth/github', (req, res, next) => {
   const code = req.body.code
