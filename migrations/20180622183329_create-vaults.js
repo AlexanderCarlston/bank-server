@@ -1,6 +1,7 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('vaults', function(table) {
         table.increments('id')
+        table.string('access_code')
         table.string('vault_name')
         table.integer('user_id')
         .notNullable()
