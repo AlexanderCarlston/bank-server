@@ -17,7 +17,7 @@ router.get("/:id", (request, response, next) => {
             : response.status(404).json({message: 'Not found'})
     }).catch(next)
 })
-router.get("/:code", (request, response, next) => {
+router.get("/code/:code", (request, response, next) => {
     queries.grab(request.params.code).then(userItem => {
         userItem
             ? response.json({userItem})
