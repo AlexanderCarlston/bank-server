@@ -17,6 +17,13 @@ router.get("/:id", (request, response, next) => {
             : response.status(404).json({message: 'Not found'})
     }).catch(next)
 })
+router.get("/:code", (request, response, next) => {
+    queries.grab(request.params.code).then(userItem => {
+        userItem
+            ? response.json({userItem})
+            : response.status(404).json({message: 'Not found'})
+    }).catch(next)
+})
 
 router.post("/", (request, response, next) => {
     queries.create(request.body).then(userItem => {

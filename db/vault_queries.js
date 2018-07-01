@@ -25,5 +25,8 @@ module.exports = {
     },
     user_vault(id){
       return database('vaults').select().where('user_id', id)
+    },
+    grab(code){
+      return database('vaults').select().where('access_code', code).first()
     }
 };
