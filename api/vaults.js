@@ -5,29 +5,29 @@ const router = express.Router()
 const queries = require('../db/vault_queries.js')
 
 router.get("/", (request, response, next) => {
-    queries.list().then(user => {
-        response.json({user})
+    queries.list().then(vault => {
+        response.json({vault})
     }).catch(next)
 })
 
 router.get("/:id", (request, response, next) => {
-    queries.read(request.params.id).then(userItem => {
-        userItem
-            ? response.json({userItem})
+    queries.read(request.params.id).then(vaultItem => {
+        vaultItem
+            ? response.json({vaultItem})
             : response.status(404).json({message: 'Not found'})
     }).catch(next)
 })
 router.get("/code/:code", (request, response, next) => {
-    queries.grab(request.params.code).then(userItem => {
-        userItem
-            ? response.json({userItem})
+    queries.grab(request.params.code).then(vaultItem => {
+        vaultItem
+            ? response.json({vaultItem})
             : response.status(404).json({message: 'Not found'})
     }).catch(next)
 })
 
 router.post("/", (request, response, next) => {
-    queries.create(request.body).then(userItem => {
-        response.status(201).json({userItem: userItem})
+    queries.create(request.body).then(vaultItem => {
+        response.status(201).json({vaultItem: vaultItem})
     }).catch(next)
 })
 
@@ -38,8 +38,8 @@ router.delete("/:id", (request, response, next) => {
 })
 
 router.put("/:id", (request, response, next) => {
-    queries.update(request.params.id, request.body).then(userItem => {
-        response.json({userItem: userItem[0]})
+    queries.update(request.params.id, request.body).then(vaultItem => {
+        response.json({vaultItem: vaultItem[0]})
     }).catch(next)
 })
 
